@@ -25,7 +25,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect update when not logged in" do
     patch user_path(@user), params: { user: { name: @user.name,
-                                              email: @user.email } }
+                                              email: @user.email,
+                                              shozoku:@user.shozoku} }
     assert_not flash.empty?
     assert_redirected_to login_url
   end
