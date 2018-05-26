@@ -2,10 +2,7 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>
-      
-        <%= @user.name %>
-      </h1>
+
     </section>
   </aside>
 </div>
@@ -13,14 +10,19 @@
   <table class="txt1 table table-bordered table-striped table-condensed table-status">
     <thead>
       <tr>
-        <th class="table-header">出社</th>
-        <th class="table-header">退勤</th>
+        <th>2018年5月</th>
+        <th>指定勤務時間</th>
+        <th colspan="2">基本時間</th>
+        <th >初日</th>
       </tr>
     </thead>
     <thead>
       <tr>
-        <th class="table-header">出社</th>
-        <th class="table-header">退勤</th>
+        <th>所属</th>
+        <th>氏名 <%= @user.name %></th>
+        <th>コード</th>
+        <th>出勤日数</th>
+        <th>締め</th>
       </tr>
     </thead>
     </table>
