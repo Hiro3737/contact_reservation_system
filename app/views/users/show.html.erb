@@ -1,47 +1,56 @@
-<% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
+  <div class="col-md-12">
 
-    </section>
-  </aside>
+
+<div class ="table-wrapper">
+
+<table class="tg" width="100%">
+  <tr>
+    <th class="tg-c3ow">←　→</th>
+    <th class="tg-us36">指定労働時間</th>
+    <th class="tg-us36" colspan="3">基本時間</th>
+    <th class="tg-yw4l">初日</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">所属</td>
+    <td class="tg-us36">氏名<%= @user.name %></td>
+    <td class="tg-us36">コード</td>
+    <td class="tg-us36"></td>
+    <td class="tg-us36">出勤日数</td>
+    <td class="tg-yw4l">締め</td>
+  </tr>
+</table>
+
+</div>
+</div>
 </div>
 
+  <div class="col-md-12">
+     <a class="btn btn-default active">編集</a>
+<div class ="table-wrapper">
+
+<table class="tg" width="100%"
+<table class="tg"　width="100%">
+  <tr>
+    <th class="tg-c3ow" rowspan="2">日付</th>
+    <th class="tg-us36" rowspan="2">曜日</th>
+    <th class="tg-us36" colspan="3">出社</th>
+    <th class="tg-us36" colspan="3">退勤</th>
+    <th class="tg-yw4l" rowspan="2">在社時間</th>
+    <th class="tg-yw4l" rowspan="2">備考</th>
+    <th class="tg-yw4l" rowspan="2">指示者</th>
+  </tr>
+  <tr>
+    <td class="tg-us36">時</td>
+    <td class="tg-us36">分</td>
+    <td class="tg-us36"></td>
+    <td class="tg-us36">時</td>
+    <td class="tg-yw4l">分</td>
+    <td class="tg-yw4l"></td>
+  </tr>
+</table>
 
 
-  <table class="txt1 table table-bordered table-striped table-condensed table-status">
-    <thead>
-      <tr>
-        <th>⬅</th>
-        <th>2018年5月</th>
-        <th>➡️️︎︎</th>
-        <th>指定勤務時間</th>
-        <th colspan="2">基本時間</th>
-        <th>初日</th>
-      </tr>
-    </thead>
-    <thead>
-      <tr>
-        <th>所属</th>
-        <th>氏名 <%= @user.name %></th>
-        <th>コード</th>
-        <th>出勤日数</th>
-        <th >締め</th>
-      </tr>
-     </thead>
-     
-  <table class="table table-bordered table-striped table-index" >
-       <a class="btn btn-default active">編集</a>
-      <tr>
-        <th>日付</th>
-        <th >曜日</th>
-        <th>出社</th>
-        <th>退社</th>
-        <th>時</th>
-        <th>分</th>
-        <th>時</th>
-        <th>分</th>
-      </tr>
-    </thead>
-    </table>
-    </table>
+</div>
+</div>
+</div>
