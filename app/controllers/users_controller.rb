@@ -8,7 +8,11 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
+    if logged_in?
+    @user = current_user
+    @start = Time.current.beginning_of_month.to_datetime
+    @end = @start.end_of_month.to_datetime
+    end
   end
 
   def new
