@@ -1,106 +1,114 @@
-<div class="row">
+  <div class="row">
+    <div class="col-md-12">
+      
+  
+  <div class ="table-wrapper">
+  
+  <table class="tg" width="100%">
+  　    <th class="tg-us36">
+      <%=link_to "⬅️", show_path(countdate: @Data,Increment:-1,today: @Today) %>
+      <%=@Date.strftime("%Y年%m月")%>
+      <%=link_to "➡️", show_path(countdate: @Data,Increment:+1,today: @Today) %>
+    </th>
+      <th class="tg-us36">指定労働時間 8:00</th>
+      <th class="tg-us36" colspan="3">7:50 基本時間</th>
+      <th class="tg-yw4l">初日 <%=@start.month.to_s%>/<%=@start.day.to_s%></th>
+  
+    <tr>
+      <td class="tg-us36">所属</td>
+      <td class="tg-us36">氏名<%= @user.name %></td>
+      <td class="tg-us36">コード</td>
+      <td class="tg-us36"></td>
+      <td class="tg-us36">出勤日数<%=@start.end_of_month.day.to_s%></td>
+      <td class="tg-yw4l">締め <%=@end.month.to_s%>/<%=@end.day.to_s%></td>
+    </tr>
+  </table>
+  
+  </div>
+  </div>
+  
+  
   <div class="col-md-12">
+  <a class="btn btn-default active">編集</a>
+  <div class ="table-wrapper">
+  
+  <table class="tg table-striped" width="100%">
+  
+    <tr>
+      <th class="tg-us36" rowspan="2">日付</th>
+      <th class="tg-us36" rowspan="2">曜日</th>
+      <th class="tg-c3ow" colspan="3">出社</th>
+      <th class="tg-c3ow" colspan="3">退社</th>
+      <th class="tg-yw4l">在社時間</th>
+    </tr>
+    <tr>
+      <td class="tg-baqh" colspan="1">時</td>
+      <td class="tg-yw4l" colspan="1">分</td>
+      <td class="tg-yw4l" colspan="1"></td>
+      <td class="tg-baqh" colspan="1">時</td>
+      <td class="tg-baqh" colspan="1">分</td>
+      <td class="tg-yw4l"></td>
+      <td class="tg-yw4l"></td>
+    </tr>
     
-
-<div class ="table-wrapper">
-
-<table class="tg" width="100%">
-　    <th class="tg-us36">
-    <%=link_to "⬅️", show_path(start: @start) %>
-    <%= Time.current.strftime("%Y年%m月")%>
-    <%=link_to "➡️", show_path(end: @end) %>
-  </th>
-    <th class="tg-us36">指定労働時間</th>
-    <th class="tg-us36" colspan="3">基本時間</th>
-    <th class="tg-yw4l">初日</th>
-
-  <tr>
-    <td class="tg-us36">所属</td>
-    <td class="tg-us36">氏名<%= @user.name %></td>
-    <td class="tg-us36">コード</td>
-    <td class="tg-us36"></td>
-    <td class="tg-us36">出勤日数</td>
-    <td class="tg-yw4l">締め</td>
-  </tr>
-</table>
-
-</div>
-</div>
-
-
-<div class="col-md-12">
-<a class="btn btn-default active">編集</a>
-<div class ="table-wrapper">
-
-<table class="tg table-striped" width="100%">
-
-  <tr>
-    <th class="tg-us36" rowspan="2">日付</th>
-    <th class="tg-us36" rowspan="2">曜日</th>
-    <th class="tg-c3ow" colspan="3">出社</th>
-    <th class="tg-c3ow" colspan="3">退社</th>
-    <th class="tg-yw4l">在社時間</th>
-  </tr>
-  <tr>
-    <td class="tg-baqh" colspan="1">時</td>
-    <td class="tg-yw4l" colspan="1">分</td>
-    <td class="tg-yw4l" colspan="1"></td>
-    <td class="tg-baqh" colspan="1">時</td>
-    <td class="tg-baqh" colspan="1">分</td>
-    <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
-  </tr>
-  
-  <tboby>
-  <% (@start..@end).each do |date| %>
-  <% wday = %w[日 月 火 水 木 金 土] %>
-  <% youbi = wday[Time.local(date.year, date.month, date.day).wday]%>
-  
-  <tr class = "tg-us36">
-  <td>
-    <!--月の日付を取得-->
-    <%= "#{date.month} / #{date.day}" %>
+    <tboby>
+    <% (@start..@end).each do |date| %>
+    <% wday = %w[日 月 火 水 木 金 土] %>
+    <% youbi = wday[Time.local(date.year, date.month, date.day).wday]%>
+    
+    
+    <tr class = "tg-us36">
+    <td>
+      <!--月の日付を取得-->
+      <%= "#{date.month} / #{date.day}" %>
+      
+      </td>
+      
+    <td>
+        <%= "#{youbi}" %>
+    </td>
+    <!--時-->
+    <td>
+     
+    </td>
+    <!--分-->
+    <td>
+      
+      
     </td>
     
     <td>
-      <%= "#{youbi}" %>
-  </td>
-  <!--時-->
-  <td>
+      
+      <if kinmu = nill>
+      <a class="btn btn-default active">出勤</a>
+      
+    </td>
     
-  </td>
-  <!--分-->
+    <!--時-->
     <td>
+      
+    </td>
+    <!--分-->
+    <td>
+      
+    </td>
     
-  </td>
+    <td>
+      <a class="btn btn-default active">退勤</a>
+    </td>
+    
+    <td>
+      
+      
+    </td>
+    </tr>
+  <% end %>
   
-  <td>
-    
-  </td>
-  <!--時-->
-  <td>
-    
-  </td>
-  <!--分-->
-  <td>
-    
-  </td>
-  
-  <td>
-    
-  </td>
-  
-  <td>
-    
-  </td>
-  </tr>
-<% end %>
-
-  </tr>
- </tboby>
-  </table>
+    </tr>
+   </tboby>
+    </table>
+    </div>
+    </div>
+   
   </div>
   </div>
- 
-</div>
-</div>

@@ -9,10 +9,28 @@ class UsersController < ApplicationController
   
   def show
     if logged_in?
-    @user = current_user
-    @start = Time.current.beginning_of_month.to_datetime
-    @end = @start.end_of_month.to_datetime
+      @user = current_user
+      @start = Time.current.beginning_of_month.to_datetime
+      @end = @start.end_of_month.to_datetime
     end
+    
+    if params[:countdate]==nil
+      @Date=Date.today
+      @Today = Date
+    else
+      incrVal = params[:Increment].to.i
+      ##前月の処理
+      ##if 
+        ##  params[:Increment]
+      ##次月の処理
+      ##elsif
+        ##  params[:Increment]
+      ##else
+      
+      @Date = Date.new(params[:countdate].to_date.year,params[:countdate].to_date.month+incrVal,params[:countdate].to_date.day)
+      ##end
+    end
+    
   end
 
   def new
@@ -47,6 +65,8 @@ class UsersController < ApplicationController
     flash[:success] = "User deleted"
     redirect_to users_url
   end
+  
+  
 
   private
 
@@ -76,5 +96,4 @@ class UsersController < ApplicationController
     def admin_user
      redirect_to(root_url) unless current_user.admin?
     end
-
 end
