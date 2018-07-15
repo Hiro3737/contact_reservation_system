@@ -10,27 +10,17 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = current_user
-      @start = Time.current.beginning_of_month.to_datetime
-      @end = @start.end_of_month.to_datetime
     end
-    
-    if params[:countdate]==nil
-      @Date=Date.today
-      @Today = Date
+
+   # 既に表示月があれば、表示月を取得する
+    if !params[:first_day].nil?
+      @first_day = Date.parse(params[:first_day])
     else
-      incrVal = params[:Increment].to.i
-      ##前月の処理
-      ##if 
-        ##  params[:Increment]
-      ##次月の処理
-      ##elsif
-        ##  params[:Increment]
-      ##else
-      
-      @Date = Date.new(params[:countdate].to_date.year,params[:countdate].to_date.month+incrVal,params[:countdate].to_date.day)
-      ##end
+      # 表示月が無ければ、今月分を表示
+      @first_day = Date.new(Date.today.year, Date.today.month, 1)
     end
-    
+    #最終日を取得する
+    @last_day = @first_day.end_of_month
   end
 
   def new

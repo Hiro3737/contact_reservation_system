@@ -6,21 +6,27 @@
   
   <table class="tg" width="100%">
   　    <th class="tg-us36">
-      <%=link_to "⬅️", show_path(countdate: @Data,Increment:-1,today: @Today) %>
-      <%=@Date.strftime("%Y年%m月")%>
-      <%=link_to "➡️", show_path(countdate: @Data,Increment:+1,today: @Today) %>
+ 
+  　          <%= link_to "◀︎", show_url(params: { id: @user.id, first_day: @first_day.prev_month }), 
+            style:"color:white", class: 'btn btn-default btn-primary' %>  
+          　<%= @first_day.strftime("%Y年%m月") %>　時間管理表　
+        <%= link_to "▶︎", show_url(params: { id: @user.id, first_day: @first_day.next_month }), 
+        zstyle:"color:white", class: 'btn btn-default btn-primary' %>
+   
     </th>
+            
+          
       <th class="tg-us36">指定労働時間 8:00</th>
       <th class="tg-us36" colspan="3">7:50 基本時間</th>
-      <th class="tg-yw4l">初日 <%=@start.month.to_s%>/<%=@start.day.to_s%></th>
+      <th class="tg-yw4l">初日 <%=@first_day.month.to_s%>/<%= @first_day.day.to_s%></th>
   
     <tr>
       <td class="tg-us36">所属</td>
       <td class="tg-us36">氏名<%= @user.name %></td>
       <td class="tg-us36">コード</td>
       <td class="tg-us36"></td>
-      <td class="tg-us36">出勤日数<%=@start.end_of_month.day.to_s%></td>
-      <td class="tg-yw4l">締め <%=@end.month.to_s%>/<%=@end.day.to_s%></td>
+      <td class="tg-us36">出勤日数<%=@first_day.end_of_month.day.to_s%></td>
+      <td class="tg-yw4l">締め <%=@last_day.month.to_s%>/<%=@first_day.day.to_s%></td>
     </tr>
   </table>
   
@@ -52,7 +58,7 @@
     </tr>
     
     <tboby>
-    <% (@start..@end).each do |date| %>
+    <% (@first_day..@last_day).each do |date| %>
     <% wday = %w[日 月 火 水 木 金 土] %>
     <% youbi = wday[Time.local(date.year, date.month, date.day).wday]%>
     
@@ -79,7 +85,7 @@
     
     <td>
       
-      <if kinmu = nill>
+  
       <a class="btn btn-default active">出勤</a>
       
     </td>
