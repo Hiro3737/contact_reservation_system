@@ -1,120 +1,120 @@
-  <div class="row">
-    <div class="col-md-12">
-      
+<% provide(:title, @user.name) %>
+<table class="table table-bordered table-striped table-condensed">
   
-  <div class ="table-wrapper">
-  
-  <table class="tg" width="100%">
-  　    <th class="tg-us36">
- 
-  　          <%= link_to "◀︎", show_url(params: { id: @user.id, first_day: @first_day.prev_month }), 
+  <thead>
+   <div class = "header">  
+    <tr>
+      <th class="table-header">
+        <%= link_to "◀︎", show_url(params: { id: @user.id, first_day: @first_day.prev_month }), 
             style:"color:white", class: 'btn btn-default btn-primary' %>  
-          　<%= @first_day.strftime("%Y年%m月") %>　時間管理表　
+            　<%= @first_day.strftime("%Y年%m月") %>　時間管理表　
         <%= link_to "▶︎", show_url(params: { id: @user.id, first_day: @first_day.next_month }), 
-        zstyle:"color:white", class: 'btn btn-default btn-primary' %>
-   
-    </th>
-            
+            style:"color:white", class: 'btn btn-default btn-primary' %>
+     </th>
+      <th class="table-header">
+    指定勤務時間
+      </th>
+      <th colspan="3" class="table-header">基本時間 
+      </th>
+      <th class="table-header">初日  <%= @first_day.strftime("%m/%d") %></th>
+    </tr>
+    <tr>
+      <th class="table-header">所属　</th>
+      <th class="table-header">氏名　<%= @user.name %></th>
+      <th class="table-header">コード</th>
+      <th class="table-header"><%= "0921" %></th>
+      <th class="table-header">出勤日数　<%= @attendance_days %>日</th>
+      <th class="table-header">締め　<%= @last_day.strftime("%m/%d") %></th>
+    </tr>
+  </div>  
+  </thead>
+</table>
+<!--attendance_edit_pathに、userのidと今月の値を渡す-->
+<%= link_to "勤怠を編集", attendance_edit_url(@attendance, params: { id: @user.id, first_day: @first_day }), 
+                          :style=>"color:white;", class: "btn btn-sm btn-primary"   %>
+<table class="table table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+      <th rowspan="2" class="table-header">日付</th>
+      <th rowspan="2" class="table-header">曜日</th>
+      <th colspan="3" class="table-header">出社</th>
+      <th colspan="3" class="table-header">退社</th>
+      <th rowspan="2" class="table-header">在社時間</th>
+      <th rowspan="2" class="table-header">備考</th>
+    </tr>
+    
+    <tr>    
+     <th             class="table-header">時</th>
+     <th             class="table-header">分</th>
+     <th             class="table-header">  </th>
+     <th             class="table-header">時</th>
+     <th             class="table-header">分</th>
+     <th             class="table-header">  </th>
+    </tr>
+  </thead>
+    
+  <tbody>
+    <!-- users_controller.rbの@attendancesの中身を見にいく-->
+    <% @attendances.each do |attendance| %>
+      <%= form_for(attendance, url: attendance_update_path ) do |f| %>
+      <%= f.hidden_field :user_id, :value => "#{@user.id}"%>
+      <%= f.hidden_field :id, :value => "#{attendance.id}"%>
+        <tr>
+     　　　  <!--日付-->
+          <td class="table-body"><%= attendance.day.month %>/<%= attendance.day.day %></td>
+          <!--曜日-->
+          <td class="table-body"><%= @youbi[attendance.day.wday] %></td>
+          <!-- 出社時間の表示  -->
+          <td class="table-body">
+            <%= attendance.attendance_time.hour if !attendance.attendance_time.nil? %>
+          </td>
+          <td class="table-body">
+            <%= attendance.attendance_time.min if !attendance.attendance_time.nil? %>
+          </td>
+          <td class="table-body">
+            <!-- 自身の勤怠で出社時間と退社時間が空なら表示  -->
+            <% if current_user == @user && attendance.attendance_time.nil? && attendance.leaving_time.nil? && attendance.day == Date.today %>
+              <%= f.hidden_field :update_type, :value => "attendance_time"%>
+              <%= f.submit "出社", class: "btn btn-sm btn-primary" %>
+            <% end %>
+          </td>
+          <!-- 退社時間の表示  -->
+          <td class="table-body">
+            <%= attendance.leaving_time.hour if !attendance.leaving_time.nil? %>
+          </td>
+          <td class="table-body">
+            <%= attendance.leaving_time.min if !attendance.leaving_time.nil? %>
+          </td>
+          <td class="table-body">
+            <!-- 出社時間入力済みかつ退社時間が空なら表示  -->
+            <% if current_user == @user && !attendance.attendance_time.nil? && attendance.leaving_time.nil? && attendance.day == Date.today %>
+              <%= f.hidden_field :update_type, :value => "leaving_time"%>
+              <%= f.submit "退社", class: "btn btn-sm btn-primary" %>
+            <% end %>
+          </td>
           
-      <th class="tg-us36">指定労働時間 8:00</th>
-      <th class="tg-us36" colspan="3">7:50 基本時間</th>
-      <th class="tg-yw4l">初日 <%=@first_day.month.to_s%>/<%= @first_day.day.to_s%></th>
-  
+          <!-- 在社時間の表示  -->
+          <td class="table-body">
+            <% if !attendance.attendance_time.nil? && !attendance.leaving_time.nil? %>
+              <%= format("%.2f", (attendance.leaving_time - attendance.attendance_time)/3600) %>
+            <% end %>
+          </td>
+          <!-- 備考の表示  -->
+          <td class="table-body">
+
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
     <tr>
-      <td class="tg-us36">所属</td>
-      <td class="tg-us36">氏名<%= @user.name %></td>
-      <td class="tg-us36">コード</td>
-      <td class="tg-us36"></td>
-      <td class="tg-us36">出勤日数<%=@first_day.end_of_month.day.to_s%></td>
-      <td class="tg-yw4l">締め <%=@last_day.month.to_s%>/<%=@first_day.day.to_s%></td>
-    </tr>
-  </table>
-  
-  </div>
-  </div>
-  
-  
-  <div class="col-md-12">
-  <a class="btn btn-default active">編集</a>
-  <div class ="table-wrapper">
-  
-  <table class="tg table-striped" width="100%">
-  
-    <tr>
-      <th class="tg-us36" rowspan="2">日付</th>
-      <th class="tg-us36" rowspan="2">曜日</th>
-      <th class="tg-c3ow" colspan="3">出社</th>
-      <th class="tg-c3ow" colspan="3">退社</th>
-      <th class="tg-yw4l">在社時間</th>
-    </tr>
-    <tr>
-      <td class="tg-baqh" colspan="1">時</td>
-      <td class="tg-yw4l" colspan="1">分</td>
-      <td class="tg-yw4l" colspan="1"></td>
-      <td class="tg-baqh" colspan="1">時</td>
-      <td class="tg-baqh" colspan="1">分</td>
-      <td class="tg-yw4l"></td>
-      <td class="tg-yw4l"></td>
-    </tr>
-    
-    <tboby>
-    <% (@first_day..@last_day).each do |date| %>
-    <% wday = %w[日 月 火 水 木 金 土] %>
-    <% youbi = wday[Time.local(date.year, date.month, date.day).wday]%>
-    
-    
-    <tr class = "tg-us36">
-    <td>
-      <!--月の日付を取得-->
-      <%= "#{date.month} / #{date.day}" %>
-      
+      <td colspan="2" class="table-body"> 
       </td>
-      
-    <td>
-        <%= "#{youbi}" %>
-    </td>
-    <!--時-->
-    <td>
-     
-    </td>
-    <!--分-->
-    <td>
-      
-      
-    </td>
-    
-    <td>
-      
-  
-      <a class="btn btn-default active">出勤</a>
-      
-    </td>
-    
-    <!--時-->
-    <td>
-      
-    </td>
-    <!--分-->
-    <td>
-      
-    </td>
-    
-    <td>
-      <a class="btn btn-default active">退勤</a>
-    </td>
-    
-    <td>
-      
-      
-    </td>
+      <td colspan="6" class="table-body"></td>
+      <td class="table-body">
+      </td>
+      <td colspan="1" class="table-body"></td>
     </tr>
-  <% end %>
-  
-    </tr>
-   </tboby>
-    </table>
-    </div>
-    </div>
-   
-  </div>
-  </div>
+  </tbody>
+</table>
+
+

@@ -7,8 +7,15 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   get    'show'    => 'users#show'
-  get    'show'    => 'users#attendance'
   delete 'logout'  => 'sessions#destroy'
+   # 出勤画面表示・編集
+  get  '/attendance_update', to: 'attendances#attendance_update'
+  post '/attendance_update', to: 'attendances#attendance_update'
+  patch '/attendance_update', to: 'attendances#attendance_update'
+  
+  get  '/attendance_edit', to: 'attendances#attendance_edit'
+  post '/attendance_edit', to: 'attendances#attendance_edit'
+  patch '/attendance_edit', to: 'attendances#attendance_edit'
   resources :users do
     member do
       get :following, :followers
