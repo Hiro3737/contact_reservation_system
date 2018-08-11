@@ -32,7 +32,6 @@ class AttendancesController < ApplicationController
     @youbi = %w[日 月 火 水 木 金 土]
     
 
-    
     # 既に表示月があれば、表示月を取得する
     if !params[:first_day].nil?
       @first_day = Date.parse(params[:first_day])
@@ -55,4 +54,5 @@ class AttendancesController < ApplicationController
     # 表示期間の勤怠データを日付順にソートして取得 show.html.erb、 <% @attendances.each do |attendance| %>からの情報
     @attendances = @user.attendances.where('day >= ? and day <= ?', @first_day, @last_day).order("day ASC")
   end
+
 end
