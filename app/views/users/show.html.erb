@@ -106,15 +106,19 @@
 
           </td>
         </tr>
-      <% end %>
-    <% end %>
+   
     <tr>
       <td colspan="2" class="table-body"> 
       </td>
       <td colspan="6" class="table-body"></td>
       <td class="table-body">
+        <% if attendance.attendance_time.present? && attendance.leaving_time.present? %>
+        <%= format("%.2f", (attendance.leaving_time + attendance.attendance_time)*3600) %>
+        <% end %>
       </td>
       <td colspan="1" class="table-body"></td>
     </tr>
+       <% end %>
+    <% end %>
   </tbody>
 </table>
