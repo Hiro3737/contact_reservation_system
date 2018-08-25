@@ -21,6 +21,7 @@ class AttendancesController < ApplicationController
     #出社・退社押下した日付及び現在のuser idを@userに返す
     @user = User.find(params[:attendance][:user_id])
     redirect_to @user
+    
   end
   
   
@@ -54,5 +55,13 @@ class AttendancesController < ApplicationController
     # 表示期間の勤怠データを日付順にソートして取得 show.html.erb、 <% @attendances.each do |attendance| %>からの情報
     @attendances = @user.attendances.where('day >= ? and day <= ?', @first_day, @last_day).order("day ASC")
   end
+  
+  
+ 
+  #勤怠データを取得する
+ (@attendance_time..@leaving_time).each do |date|
+  　if @user.attendance_time.empty? ||@useer.leaving_time.empty?
+  　
+  end
+  end
 
-end

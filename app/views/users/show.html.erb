@@ -96,6 +96,8 @@
           <!-- 在社時間の表示  -->
           <td class="table-body">
             <% if !attendance.attendance_time.nil? && !attendance.leaving_time.nil? %>
+            <%= f.hidden_field :update_type, :value => "attendance_time"%>
+             <%= f.hidden_field :update_type, :value => "leaving_time"%>
               <%= format("%.2f", (attendance.leaving_time - attendance.attendance_time)/3600) %>
             <% end %>
           </td>
@@ -105,20 +107,20 @@
           <td class="table-body">
 
           </td>
-        </tr>
+      <% end %>
+    <% end %>
+  </tr>
    
     <tr>
       <td colspan="2" class="table-body"> 
       </td>
       <td colspan="6" class="table-body"></td>
       <td class="table-body">
-        <% if attendance.attendance_time.present? && attendance.leaving_time.present? %>
-        <%= format("%.2f", (attendance.leaving_time + attendance.attendance_time)*3600) %>
-        <% end %>
+        
+
       </td>
       <td colspan="1" class="table-body"></td>
     </tr>
-       <% end %>
-    <% end %>
+    
   </tbody>
 </table>
