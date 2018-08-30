@@ -51,17 +51,10 @@ class AttendancesController < ApplicationController
         linked_attendance = Attendance.create(user_id: @user.id, day: date)
         linked_attendance.save
       end
-    end
+
     # 表示期間の勤怠データを日付順にソートして取得 show.html.erb、 <% @attendances.each do |attendance| %>からの情報
     @attendances = @user.attendances.where('day >= ? and day <= ?', @first_day, @last_day).order("day ASC")
   end
-  
-  
  
-  #勤怠データを取得する
- (@attendance_time..@leaving_time).each do |date|
-  　if @user.attendance_time.empty? ||@useer.leaving_time.empty?
-  　
   end
-  end
-
+end

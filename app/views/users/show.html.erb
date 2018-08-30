@@ -55,6 +55,7 @@
     
   <tbody>
     <!-- users_controller.rbの@attendancesの中身を見にいく-->
+    <% total_present_time = 0 %>
     <% @attendances.each do |attendance| %>
       <%= form_for(attendance, url: attendance_update_path ) do |f| %>
       <%= f.hidden_field :user_id, :value => "#{@user.id}"%>
@@ -98,29 +99,31 @@
             <% if !attendance.attendance_time.nil? && !attendance.leaving_time.nil? %>
             <%= f.hidden_field :update_type, :value => "attendance_time"%>
              <%= f.hidden_field :update_type, :value => "leaving_time"%>
-              <%= format("%.2f", (attendance.leaving_time - attendance.attendance_time)/3600) %>
+             
+             
+             <% present_time = (attendance.leaving_time - attendance.attendance_time) / 3600 %>
+             <% total_present_time += present_time %>
+             
+             <%=format("%.2f", present_time) %>
+             
+              
             <% end %>
           </td>
-          
-          
           <!-- 備考の表示  -->
           <td class="table-body">
-
           </td>
-      <% end %>
+        </tr>
+       <% end %>
+       
     <% end %>
-  </tr>
-   
-    <tr>
-      <td colspan="2" class="table-body"> 
-      </td>
-      <td colspan="6" class="table-body"></td>
-      <td class="table-body">
-        
-
-      </td>
-      <td colspan="1" class="table-body"></td>
-    </tr>
-    
+         <tr>
+        <td colspan="2" class="table-body"></td>
+        <td colspan="6" class="table-body"></td>
+        <!-- 合計在社時間の表示 -->
+        <td class="table-body">
+        <%= format("%.2f", total_present_time) %>
+        </td>
+        <td colspan="1" class="table-body"></td>
+      </tr>
   </tbody>
 </table>
