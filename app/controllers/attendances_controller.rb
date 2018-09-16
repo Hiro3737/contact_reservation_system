@@ -9,12 +9,12 @@ class AttendancesController < ApplicationController
     
     if @update_type == 'attendance_time'
       # 出社時刻を更新 
-      if !@attendance.update_column(:attendance_time, Time.current)
+      if !@attendance.update_column(:attendance_time, DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
         flash[:error] = "出社時間の入力に失敗しました"
       end
     elsif @update_type == 'leaving_time'
       # 退社時刻を更新 
-      if !@attendance.update_column(:leaving_time, Time.current)
+      if !@attendance.update_column(:leaving_time, DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
         flash[:error] = "退社時間の入力に失敗しました"
       end
     end  
