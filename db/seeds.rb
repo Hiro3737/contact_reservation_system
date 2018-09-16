@@ -16,4 +16,8 @@ User.create!(name:  "Example User",
               password_confirmation: password,
               activated: true,
               activated_at: Time.zone.now)
+ 
+ Model.create(basic_work_time: "勤怠時間", specified_work_time:8)
+             
+              
 end

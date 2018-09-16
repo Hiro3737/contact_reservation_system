@@ -16,11 +16,20 @@ Rails.application.routes.draw do
   get  '/attendance_edit', to: 'attendances#attendance_edit'
   post '/attendance_edit', to: 'attendances#attendance_edit'
   patch '/attendance_edit', to: 'attendances#attendance_edit'
+  
+  get    '/basic_info',    to: 'users#basic_info'
+  post   '/basic_info',    to: 'users#basic_info'
+
   resources :users do
     member do
       get :following, :followers
     end
   end
+  
+
+  
+  resources :basic_infos
+  
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]

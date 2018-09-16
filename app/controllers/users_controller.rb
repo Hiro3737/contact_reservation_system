@@ -41,6 +41,10 @@ class UsersController < ApplicationController
     @attendances = @user.attendances.where('day >= ? and day <= ?', @first_day, @last_day).order("day ASC")
   end
 
+  def basic_info
+      @user = current_user
+  end
+
   def new
     @user = User.new
   end
