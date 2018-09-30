@@ -6,7 +6,7 @@ User.create!(name:  "Example User",
              activated: true,
              activated_at: Time.zone.now)
 
-99.times do |n|
+30.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -17,7 +17,8 @@ User.create!(name:  "Example User",
               activated: true,
               activated_at: Time.zone.now)
  
- Model.create(basic_work_time: "勤怠時間", specified_work_time:8)
+ BasicInfo.create!(basic_work_time: DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0),
+                   specified_work_time: DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
              
               
 end

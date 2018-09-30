@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   
   get    '/basic_info',    to: 'users#basic_info'
   post   '/basic_info',    to: 'users#basic_info'
+  
+  
 
   resources :users do
     member do

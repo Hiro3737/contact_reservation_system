@@ -9,4 +9,8 @@ module ApplicationHelper
       page_title + " | " + base_title                 # 文字列の結合
     end
   end
+  
+  def time_format(time)
+   format("%.2f", (((time.hour * 60) + time.min).to_d / 60.to_d))
+  end
 end

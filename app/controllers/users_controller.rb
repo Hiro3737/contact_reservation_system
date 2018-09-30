@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+   before_action :admin_user,     only: [:destroy, :edit_basic_info, :update_basic_info]
 
   def index
         @users = User.paginate(page: params[:page])
@@ -11,12 +11,16 @@ class UsersController < ApplicationController
     if logged_in?
       @user = current_user
     end
+    
+    
+
+    
 
 # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
     
     #基本情報
-    ##@basic_info = BasicInfo.find_by(id: 1)
+    @basic_info = BasicInfo.find_by(id: 1)
     
     # 既に表示月があれば、表示月を取得する
     if !params[:first_day].nil?
@@ -44,6 +48,8 @@ class UsersController < ApplicationController
   def basic_info
       @user = current_user
   end
+  
+  
 
   def new
     @user = User.new
@@ -80,6 +86,7 @@ class UsersController < ApplicationController
     flash[:success] = "User deleted"
     redirect_to users_url
   end
+  
 
   private
 
