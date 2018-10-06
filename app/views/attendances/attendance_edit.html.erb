@@ -15,7 +15,7 @@
   </thead>
     
   <tbody>
-    
+      <% total_present_time = 0 %>
       <% @attendances.each do |attendance| %>
       <%= form_for(attendance, url: attendance_update_path ) do |f| %>
       <%= f.hidden_field :user_id, :value => "#{@user.id}"%>
@@ -58,24 +58,32 @@
             
           </td>
           
-          <td  class="table-body">
-          </td>
-          
-          
-          <td  class="table-body">
-          </td>
 
         </tr>
   <% end %>
-  
   <% end %>
+  
+        <tr>
+        <td colspan="2" class="table-body"></td>
+        <td colspan="2" class="table-body">
+          
+        </td>
+        <!-- 合計在社時間の表示 -->
+        <td class="table-body">
+        <%= format("%.2f", total_present_time) %>
+        </td>
+        
+          <td  class="table-body">
+          </td>
+      </tr>
   
   
   </tbody>
-
 </table>
 
 <center>
+    <%= link_to "更新", user_url(@user, params: { id: @user.id, first_day: @first_day }), 
+                          class: "btn btn-sm btn-default"   %>
   <%= link_to "キャンセル", user_url(@user, params: { id: @user.id, first_day: @first_day }), 
                           class: "btn btn-sm btn-default"   %>
 </center>

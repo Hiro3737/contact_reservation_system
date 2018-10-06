@@ -12,9 +12,6 @@ class UsersController < ApplicationController
       @user = current_user
     end
     
-    
-
-    
 
 # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
@@ -70,6 +67,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+      @user = User.find_by(id: params[:id])
   end
 
   def update
