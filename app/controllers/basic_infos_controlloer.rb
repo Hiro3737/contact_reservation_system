@@ -10,5 +10,4 @@ class BasicInfosController < ApplicationController
     def basic_info
         @user = current_user
     end
-    
 end

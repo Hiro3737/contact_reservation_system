@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     (@first_day..@last_day).each do |date|
       # 該当日付のデータがないなら作成する
       #(例)user1に対して、今月の初日から最終日の値を取得する
-     if !@user.attendances.any? {|attendance| attendance.day == date }
+      if !@user.attendances.any? {|attendance| attendance.day == date }
         linked_attendance = Attendance.create(user_id: @user.id, day: date)
         linked_attendance.save
       end
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
     end
   end
   
-    def destroy
+  def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,:shozoku,
-                                   :password_confirmation)
+                                   :basic_work_time, :specified_work_time, :password_confirmation)
     end
     
     # beforeアクション

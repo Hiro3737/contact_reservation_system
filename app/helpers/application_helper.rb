@@ -11,6 +11,7 @@ module ApplicationHelper
   end
   
   def time_format(time)
-   format("%.2f", (((time.hour * 60) + time.min).to_d / 60.to_d))
+    format("%.2f", (((time.hour * 60) + time.min).to_d / 60.to_d))
   end
+  
 end

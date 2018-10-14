@@ -1,7 +1,10 @@
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
+             shozoku:"中野",
              password:              "foobar",
              password_confirmation: "foobar",
+             basic_work_time: Time.zone.now,
+             specified_work_time: Time.zone.now,
              admin:     true,
              activated: true,
              activated_at: Time.zone.now)
@@ -12,10 +15,14 @@ User.create!(name:  "Example User",
   password = "password"
   User.create!(name:  name,
               email: email,
+              shozoku:"中野",
+              basic_work_time: Time.zone.now,
+              specified_work_time: Time.zone.now,
               password:              password,
               password_confirmation: password,
               activated: true,
-              activated_at: Time.zone.now)
+              activated_at: Time.zone.now
+              )
  
  BasicInfo.create!(basic_work_time: DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0),
                    specified_work_time: DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
