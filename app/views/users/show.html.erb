@@ -100,13 +100,11 @@
             <%= f.hidden_field :update_type, :value => "attendance_time"%>
              <%= f.hidden_field :update_type, :value => "leaving_time"%>
              
-             
              <% present_time = (attendance.leaving_time - attendance.attendance_time) / 3600 %>
              <% total_present_time += present_time %>
              
              <%=format("%.2f", present_time) %>
              
-              
             <% end %>
           </td>
           <!-- 備考の表示  -->

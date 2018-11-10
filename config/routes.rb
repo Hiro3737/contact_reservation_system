@@ -20,6 +20,11 @@ Rails.application.routes.draw do
   get    '/basic_info',    to: 'users#basic_info'
   post   '/basic_info',    to: 'users#basic_info'
   
+  patch '/attendance_update_all',to: 'attendances#attendance_update_all'
+  post  '/attendance_update_all', to: 'attendances#attendance_update_all'
+  get   '/attendance_update_all', to: 'attendances#attendance_update_all'
+  
+
   
 
   resources :users do
@@ -27,8 +32,6 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  
-
   
   resources :basic_infos
   

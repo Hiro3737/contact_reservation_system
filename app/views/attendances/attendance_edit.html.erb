@@ -1,89 +1,64 @@
-<% provide(:title) %>
-<h1>勤怠編集</h1>
 
-<table class="table table-bordered table-striped table-condensed">
-  <thead>
-    <tr>
-      <th  class="table-header">日付</th>
-      <th  class="table-header">曜日</th>
-      <th  class="table-header">出社</th>
-      <th  class="table-header">退社</th>
-      <th  class="table-header">在社時間</th>
-      <th  class="table-header">備考</th>
-    </tr>
-    
-  </thead>
-    
-  <tbody>
-      <% total_present_time = 0 %>
-      <% @attendances.each do |attendance| %>
-      <%= form_for(attendance, url: attendance_update_path ) do |f| %>
-      <%= f.hidden_field :user_id, :value => "#{@user.id}"%>
-      <%= f.hidden_field :id, :value => "#{attendance.id}"%>
+<% provide(:title,"勤怠編集画面" ) %>
 
-      <!--日付-->
-        <tr>
-           <td class="table-body"><%= attendance.day.month %>/<%= attendance.day.day %></td>
-             
-          <!--曜日-->
-          <td class="table-body"><%= @youbi[attendance.day.wday] %></td>
-
-          <!-- 出社時間の表示  -->
-          <td class="table-body">
-            
-                  <%= fields_for "attendance[]", attendance do |fi| %>
-                  <%= fi.time_field :attendance_time, {class: 'form-control'}  %>
-                  <% end %>
-                  
-          </td>
-          
-          <!-- 退社時間の表示  -->
-          <td  class="table-body">
-            
-                  <%= fields_for "attendance[]", attendance do |fi| %>
-                  <%= fi.time_field :leaving_time, {class: 'form-control'}  %>
-                  <% end %>
-                  
-          </td>
-          <!--在社時間-->
-          <td class="table-body">
-            
-                <% if !attendance.attendance_time.nil? && !attendance.leaving_time.nil? %>
-                  <%= format("%.2f", (attendance.leaving_time - attendance.attendance_time)/3600) %>
-                <% end %>
-                
-       </td>
-          
-          <td  class="table-body">
-            
-          </td>
-          
-
-        </tr>
-  <% end %>
-  <% end %>
+<div>
   
-        <tr>
-        <td colspan="2" class="table-body"></td>
-        <td colspan="2" class="table-body">
-          
-        </td>
-        <!-- 合計在社時間の表示 -->
-        <td class="table-body">
-        <%= format("%.2f", total_present_time) %>
-        </td>
-        
-          <td  class="table-body">
-          </td>
+  <h1>勤怠編集画面</h1>
+  
+    <table class = "table-bordered table-striped table-condensed">
+
+  <%= form_for(@user, url: attendance_update_all_path, method: :post) do |f| %>
+  <%= hidden_field_tag :id, @user.id %>
+  <%= hidden_field_tag :first_day, @first_day %>
+  
+
+    <thead>
+ 
+   <thead>
+      <tr>
+        <th width = "7%">日付</th>
+        <th width = "9%">曜日</th>
+        <th width = "18%">出社</th>
+        <th width = "18%">退社</th>
+        <th width = "13%">在社時間</th>
+        <th width = "15%">備考</th>
+        <th width = "15%">残業指示</th>
+        <th width = "14%">指示者</th>
       </tr>
-  
-  
-  </tbody>
-</table>
+    </thead>
 
-<center>
-    <%= link_to "更新", user_url(@user, params: { id: @user.id, first_day: @first_day }), 
-                          class: "btn btn-sm btn-default"   %>
-  <%= link_to "キャンセル", user_url(@user, params: { id: @user.id, first_day: @first_day }), 
-                          class: "btn btn-sm btn-default"   %>
-</center>
+    </thead>
+
+    <tbody>
+      <% @attendances.each do |d| %>
+        <%= fields_for "attendances[]", d do |tf| %>
+          <tr>
+            <!--日付-->
+            <td class = "day"><%= d.day.to_s(:day) %></td>
+            <!--曜日-->
+            <td class = "day"><%= @youbi[d.day.wday] %></td>
+            <!--出勤-->
+            <td><%= tf.time_field :attendance_time, class: "form-control tf" %></td>
+            <!--退勤-->
+            <td><%= tf.time_field :leaving_time, class: "form-control tf" %></td>
+            <!--在社時間の秒計算-->
+            <td><%= working_hours(d.attendance_time,d.leaving_time) if d.attendance_time.present? && d.leaving_time.present? %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+
+  </table>
+
+  <center>
+    <%= f.submit "編集内容で更新", style:"width:300px", class: "btn btn-primary" %>
+
+    <%= link_to "キャンセル", user_url(@user, params:{first_day: @first_day }),\
+    style:"width:300px", class: "btn btncancel btn-default" %>
+  </center>
+
+  <% end %>
+</div>

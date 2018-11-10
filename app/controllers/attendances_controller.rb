@@ -26,13 +26,12 @@ class AttendancesController < ApplicationController
   
   
   def attendance_edit
-      if logged_in?
+    if logged_in?
       @user = current_user
     end
 # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
     
-
     # 既に表示月があれば、表示月を取得する
     if !params[:first_day].nil?
       @first_day = Date.parse(params[:first_day])
@@ -51,11 +50,49 @@ class AttendancesController < ApplicationController
         linked_attendance = Attendance.create(user_id: @user.id, day: date)
         linked_attendance.save
       end
-
+      
     # 表示期間の勤怠データを日付順にソートして取得 show.html.erb、 <% @attendances.each do |attendance| %>からの情報
     @attendances = @user.attendances.where('day >= ? and day <= ?', @first_day, @last_day).order("day ASC")
   end
  
   end
+
+  #編集ページ更新  
+  def attendance_update_all
+    @user = User.find_by(id: params[:id])
+    
+    # @attendance = Attendance.find(id)
+  
+    attendances_params.each do |id, item|
+    attendance = Attendance.find(id)
+      
+      #当日以降の編集はadminユーザのみ
+      if attendance.day > Date.current && !current_user.admin?
+        flash[:warning] = '明日以降の勤怠編集は出来ません。'
+      
+      elsif item["attendance_time"].blank? && item["leaving_time"].blank?
+
+      #出社時間と退社時間の両方の存在を確認
+      elsif item["attendance_time"].blank? || item["leaving_time"].blank?
+        flash[:warning] = '一部編集が無効となった項目があります。'
+      
+      #出社時間 > 退社時間ではないか
+      elsif item["attendance_time"].to_s > item["leaving_time"].to_s
+        flash[:warning] = '出社時間より退社時間が早い項目がありました'
+      
+      else
+        attendance.update_attributes(item)
+        flash[:success] = '勤怠時間を更新しました。'
+      end
+    end #eachの締め
+    redirect_to user_url(@user, params:{ id: @user.id, first_day: params[:first_day]})
+  end
+  
+    # プライベート
+  private
+  
+    def attendances_params
+      params.permit(attendances: [:attendance_time, :leaving_time])[:attendances]
+    end
 
 end
