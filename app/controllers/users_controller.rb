@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-   before_action :admin_user,     only: [:destroy, :edit_basic_info, :update_basic_info]
+  before_action :admin_user,     only: [:destroy, :basic_info_edit, :basic_info ,:index]
 
   def index
-        @users = User.paginate(page: params[:page])
+    
+    @users = User.paginate(page: params[:page])
+
   end
   
   def show
-    if logged_in?
-      @user = current_user
-    end
-    
 
-# 曜日表示用に使用する
+    @user = User.find(params[:id])
+
+    # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
     
     #基本情報
@@ -41,10 +41,30 @@ class UsersController < ApplicationController
     # 表示期間の勤怠データを日付順にソートして取得 show.html.erb、 <% @attendances.each do |attendance| %>からの情報
     @attendances = @user.attendances.where('day >= ? and day <= ?', @first_day, @last_day).order("day ASC")
   end
-
+  
+  
   def basic_info
-      @user = current_user
+    if params[:id].nil?
+      @user  = User.find(current_user.id)
+    else
+      @user  = User.find(params[:id])
+    end
   end
+
+  def basic_info_edit
+    
+    @user  = User.find(params[:id])
+    
+    if @user.update_attributes(user_params)
+      flash[:success] = "基本情報を更新しました。"
+      redirect_to @user
+    else
+      redirect_to @user
+    end
+  end
+  
+  
+  
   
   def new
     @user = User.new
@@ -56,16 +76,16 @@ class UsersController < ApplicationController
     #  @user.send_activation_email
      # flash[:info] = "あなたのアカウントをアクティブにするためメールしました。確認してください"
     #  redirect_to root_url
-    log_in@user
-    flash[:success]="ようこそ"
-    redirect_to @user
+      log_in@user
+      flash[:success]="ようこそ"
+      redirect_to @user
     else
       render 'new'
     end
   end
 
   def edit
-      @user = User.find_by(id: params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def update
@@ -108,7 +128,7 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user?(@user)
     end
     
-        # 管理者かどうか確認
+    # 管理者かどうか確認
     def admin_user
      redirect_to(root_url) unless current_user.admin?
     end

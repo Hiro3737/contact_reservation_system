@@ -26,10 +26,11 @@ class AttendancesController < ApplicationController
   
   
   def attendance_edit
-    if logged_in?
-      @user = current_user
-    end
-# 曜日表示用に使用する
+
+
+    @user = User.find(params[:id])
+
+    # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
     
     # 既に表示月があれば、表示月を取得する
