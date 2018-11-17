@@ -11,12 +11,10 @@ Rails.application.routes.draw do
    # 出勤画面表示・編集
   get  '/attendance_update', to: 'attendances#attendance_update'
   post '/attendance_update', to: 'attendances#attendance_update'
-  patch '/attendance_update', to: 'attendances#attendance_update'
-  
+
   get  '/attendance_edit', to: 'attendances#attendance_edit'
   post '/attendance_edit', to: 'attendances#attendance_edit'
-  patch '/attendance_edit', to: 'attendances#attendance_edit'
-  
+
   get    '/basic_info',    to: 'users#basic_info'
   post   '/basic_info_edit',    to: 'users#basic_info_edit'
   

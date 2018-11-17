@@ -7,6 +7,8 @@ class AttendancesController < ApplicationController
     # 更新パラメータを文字列で取得する
     @update_type = params[:attendance][:update_type]
     
+    
+    
     if @update_type == 'attendance_time'
       # 出社時刻を更新 
       if !@attendance.update_column(:attendance_time, DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
@@ -88,6 +90,9 @@ class AttendancesController < ApplicationController
     end #eachの締め
     redirect_to user_url(@user, params:{ id: @user.id, first_day: params[:first_day]})
   end
+  
+  
+  
   
     # プライベート
   private
