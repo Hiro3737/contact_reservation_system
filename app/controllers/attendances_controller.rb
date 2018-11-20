@@ -7,8 +7,7 @@ class AttendancesController < ApplicationController
     # 更新パラメータを文字列で取得する
     @update_type = params[:attendance][:update_type]
     
-    
-    
+
     if @update_type == 'attendance_time'
       # 出社時刻を更新 
       if !@attendance.update_column(:attendance_time, DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day,DateTime.now.hour,DateTime.now.min,0))
@@ -77,6 +76,7 @@ class AttendancesController < ApplicationController
 
       #出社時間と退社時間の両方の存在を確認
       elsif item["attendance_time"].blank? || item["leaving_time"].blank?
+      
         flash[:warning] = '一部編集が無効となった項目があります。'
       
       #出社時間 > 退社時間ではないか
@@ -84,8 +84,10 @@ class AttendancesController < ApplicationController
         flash[:warning] = '出社時間より退社時間が早い項目がありました'
       
       else
+        
         attendance.update_attributes(item)
         flash[:success] = '勤怠時間を更新しました。'
+        
       end
     end #eachの締め
     redirect_to user_url(@user, params:{ id: @user.id, first_day: params[:first_day]})
