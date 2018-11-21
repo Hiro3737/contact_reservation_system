@@ -83,10 +83,10 @@ class AttendancesController < ApplicationController
       elsif item["attendance_time"].to_s > item["leaving_time"].to_s
         flash[:warning] = '出社時間より退社時間が早い項目がありました'
       
-      else
+      # else
         
-        attendance.update_attributes(item)
-        flash[:success] = '勤怠時間を更新しました。'
+      #   attendance.update_attributes(item)
+      #   flash[:success] = '勤怠時間を更新しました。'
         
       end
     end #eachの締め
