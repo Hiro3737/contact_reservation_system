@@ -63,31 +63,30 @@ class AttendancesController < ApplicationController
 def attendance_update_all
  
     @user = User.find_by(id: params[:id])
-    false_count = 0
+    error_count = 0
     message = ""
     
-    attendances_params.each do |id, item|
+      attendances_params.each do |id, item|
       attendance = Attendance.find(id)
       
-      # 当日以降の編集はadminユーザのみ
-      if attendance.day > Date.current && !current_user.admin?
-        message = '明日以降の勤怠編集は出来ません。'
-        false_count += 1
-
       #出社時間と退社時間の両方の存在を確認
-      elsif (item["attendance_time"].blank? && item["leaving_time"].present?) || (item["attendance_time"].present? && item["leaving_time"].blank?)
+      if item["attendance_time"].blank? && item["leaving_time"].blank?
         message = '一部編集が無効となった項目があります。'
-        false_count += 1
+        
+        # 当日以降の編集はadminユーザのみ
+        elsif attendance.day > Date.current && !current_user.admin?
+        message = '明日以降の勤怠編集は出来ません。'
+        error_count += 1
       
       #出社時間 > 退社時間ではないか
       elsif item["attendance_time"].to_s > item["leaving_time"].to_s
         message = '出社時間より退社時間が早い項目がありました'
-        false_count += 1
-        
+        error_count += 1
       end
+      re
     end #eachの締め
     
-    if false_count > 0
+    if error_count > 0
       flash[:warning] = message
     else
       attendances_params.each do |id, item|
@@ -102,7 +101,6 @@ def attendance_update_all
         end
       end #eachの締め
     end
-    
     redirect_to user_url(@user, params:{ id: @user.id, first_day: params[:first_day]})
   end
   
