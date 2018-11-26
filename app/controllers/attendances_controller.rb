@@ -83,7 +83,6 @@ def attendance_update_all
         message = '出社時間より退社時間が早い項目がありました'
         error_count += 1
       end
-      re
     end #eachの締め
     
     if error_count > 0
