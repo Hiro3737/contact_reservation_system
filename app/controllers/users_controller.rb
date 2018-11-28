@@ -11,17 +11,13 @@ class UsersController < ApplicationController
   
   def show
     
-
+    @user = User.find(params[:id])
     
-    if current_user.admin?
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
-    
- 
-    
-
+    # if current_user.admin?
+    #   @user = User.find(params[:id])
+    # else
+    #   @user = current_user
+    # end
     # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
     
@@ -133,17 +129,14 @@ class UsersController < ApplicationController
     end
     
         # 正しいユーザーかどうか確認
-  def correct_user
-    user = User.find(params[:id])
-    if current_user != user
-      redirect_to root_path
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
     end
-  end
-  
+    
     # 管理者かどうか確認
     def admin_user
      redirect_to(root_url) unless current_user.admin?
     end
     
-
 end
