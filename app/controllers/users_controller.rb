@@ -10,8 +10,11 @@ class UsersController < ApplicationController
   end
   
   def show
+    # @user = User.find(params[:id])
+    
+    @user = User.find(current_user)
 
-    @user = User.find(params[:id])
+    
 
     # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
@@ -132,5 +135,11 @@ class UsersController < ApplicationController
     # 管理者かどうか確認
     def admin_user
      redirect_to(root_url) unless current_user.admin?
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      
+      redirect_to(root_path) unless current_user?(@user)
     end
 end

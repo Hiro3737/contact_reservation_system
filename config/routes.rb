@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   post  '/attendance_update_all', to: 'attendances#attendance_update_all'
   get   '/attendance_update_all', to: 'attendances#attendance_update_all'
   
+  get    '/login',   to: 'sessions#new' # loginフォーム
+  post   '/login',   to: 'sessions#create' # login
 
   
 

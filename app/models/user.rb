@@ -17,10 +17,6 @@ class User < ApplicationRecord
    
    validates :specified_work_time, presence: true
 
-   
-   
-
-
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

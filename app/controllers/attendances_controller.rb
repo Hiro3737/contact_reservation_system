@@ -6,7 +6,6 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find(params[:attendance][:id])
     # 更新パラメータを文字列で取得する
     @update_type = params[:attendance][:update_type]
-    
 
     if @update_type == 'attendance_time'
       # 出社時刻を更新 
