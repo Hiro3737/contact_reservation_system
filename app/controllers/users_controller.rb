@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:destroy, :basic_info_edit, :basic_info ,:index]
+  before_action :admin_user,     only: [:destroy, :basic_info_edit, :basic_info ,:index,:show]
 
   def index
     
@@ -11,13 +11,13 @@ class UsersController < ApplicationController
   
   def show
     
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
     
-    # if current_user.admin?
-    #   @user = User.find(params[:id])
-    # else
-    #   @user = current_user
-    # end
+    if current_user.admin?
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
     # 曜日表示用に使用する
     @youbi = %w[日 月 火 水 木 金 土]
     
