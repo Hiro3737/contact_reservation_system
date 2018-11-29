@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:destroy, :basic_info_edit, :basic_info ,:index,:show]
+  before_action :correct_user,   only: [:edit, :update,:s]
+  before_action :admin_user,     only: [:destroy, :basic_info_edit, :basic_info ,:index]
 
   def index
     

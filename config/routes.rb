@@ -21,11 +21,12 @@ Rails.application.routes.draw do
   get    '/basic_info',    to: 'users#basic_info'
   post   '/basic_info_edit',    to: 'users#basic_info_edit'
   
+   get '/basic_info',      to: 'users#edit_basic_info'
+  post'/basic_info_edit', to: 'users#basic_info_edit'
+  
   post  '/attendance_update_all', to: 'attendances#attendance_update_all'
   get   '/attendance_update_all', to: 'attendances#attendance_update_all'
   
-  get    '/login',   to: 'sessions#new' # loginフォーム
-  post   '/login',   to: 'sessions#create' # login
 
   
 
