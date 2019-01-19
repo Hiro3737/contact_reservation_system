@@ -71,7 +71,8 @@ def attendance_update_all
       #出社時間と退社時間の両方の存在を確認
       if item["attendance_time"].blank? && item["leaving_time"].blank?
         message = '一部編集が無効となった項目があります。'
-        
+  
+                    
         # 当日以降の編集はadminユーザのみ
         elsif attendance.day > Date.current && !current_user.admin?
         message = '明日以降の勤怠編集は出来ません。'
