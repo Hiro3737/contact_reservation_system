@@ -79,6 +79,7 @@
               <%= f.submit "出社", class: "btn btn-sm btn-primary" %>
             <% end %>
           </td>
+          
           <!-- 退社時間の表示  -->
           <td class="table-body">
             <%= attendance.leaving_time.hour if !attendance.leaving_time.nil? %>
