@@ -1,4 +1,0 @@
-class BasicInfo < ApplicationRecord
-
-
-end
