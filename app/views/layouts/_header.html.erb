@@ -3,24 +3,39 @@
   <div class="container">
     
     <%= link_to "テレビ電話システム", root_path, id: "logo" %>
-    
+
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><%= link_to "トップへ", current_user %></li>
-          
+        
+          <li><%= link_to "/" do %>
+          <i class="fas fa-home fa-2x"></i> トップ
+          <% end %></li>
+
           <% if current_user.admin? %>
             <li><%= link_to "ユーザ一覧", users_path %></li>
+            
           <% end %>
-              <li><%= link_to "予約", current_user %></li>
+              <li><%= link_to "/" do %>
+              <i class="fas fa-calendar-alt fa-2x"></i> 予約
+              <% end %></li>
                 <% if current_user.admin? %>
-                  <li><%= link_to "予約管理", current_user %></li>
+                  <li><%= link_to "/" do %>
+                  <i class="fas fa-cakendar-check fa-2x"></i> 予約管理
+                  <% end %></li>
                 <% end %>
-              <li><%= link_to "過去の質問", current_user %></li>
-              <li><%= link_to "設定", edit_user_path(current_user) %></li>
+            　<li><%= link_to "/" do %>
+          　　<i class="fas fa-book fa-2x"></i> 過去の質問
+          　　<% end %></li>
+          　　
+              <li><%= link_to "/" do %>
+              <i class="fas fa-cogs fa-2x"></i> 設定
+              <% end %></li>
               
               <li class="divider"></li>
-              <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+            　<li><%= link_to logout_path, method: :delete do %>
+              <i class="fas fa-sign-out-alt fa-2x"></i> ログアウト
+              <% end %></li>
             </ul>
           </li>
             
