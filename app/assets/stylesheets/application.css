@@ -14,5 +14,11 @@
  *
  *= require_tree .
  *= require_self
+<<<<<<< HEAD
  *= require fullcalendar
  */
+=======
+ *= require font-awesome
+ */
+
+>>>>>>> header

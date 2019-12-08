@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+<<<<<<< HEAD
 //= require moment
 //= require fullcalendar
 //= require fullcalendar/lang/ja
@@ -22,3 +23,5 @@ $(document).ready(function(){
     $('#calendar').fullCalendar({
     });
   });
+=======
+>>>>>>> header

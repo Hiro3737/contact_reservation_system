@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20191130063455) do
 ActiveRecord::Schema.define(version: 20191110064822) do
 
   create_table "bookings", force: :cascade do |t|
