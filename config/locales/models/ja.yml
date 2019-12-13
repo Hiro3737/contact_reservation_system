@@ -6,6 +6,12 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード確認
-        specified_work_time: 指定勤務時間
-        basic_work_time: 基本勤務時間
-
+        time_range_from: 平日相談可能時間
+        holiday_from: 休日相談可能時間
+        line: ラインNo.
+        skill: スキル
+        job: 職業
+        gender: 性別
+        age: 年代
+        enrollment: 入会日
+        user_type: ユーザー区分
