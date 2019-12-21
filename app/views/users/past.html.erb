@@ -1,0 +1,26 @@
+<% provide(:title) %>
+<h1>過去の質問一覧</h1>
+<div class="row">
+  <aside class="col-md-12">
+    <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+     <thead>
+     　 <tr>
+      　<th>日時</th>
+     　  <th>タイトル</th>
+     　  <th>ステータス</th>
+     　  <th>項目</th>
+     　 </tr>
+     </thead>
+     <tbody>
+       <% @bookings.each do |f|%>
+       <tr>
+      　<td><%=f.created_at.strftime('%Y/%m/%d')%></td>
+        <td><%= link_to f.title, pastdetail_path(f) %></td>
+      　<td><%=$status[f.status]%></td> 
+        <td><%=Tag.find(f.tag_id).tag_name%></td>
+     　 </tr>
+     　<% end %>
+     </tbody>
+    </table> 
+  </aside>
+</div>

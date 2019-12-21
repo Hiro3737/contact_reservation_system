@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include UsersHelper
   
+  $status = ["新規","面談前", "面談後","完了",]
+  
   private
 
    # ユーザーのログインを確認する

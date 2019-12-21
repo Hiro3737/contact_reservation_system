@@ -1,0 +1,28 @@
+<% provide(:title) %>
+<h1>質問内容</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+   <div>タグ：<%=Tag.find(@bookings.tag_id).tag_name%></div>
+   <p class="underline"><%=@bookings.title%></p>
+   <div><%=Point.find(@bookings.point_id).item%></div>
+   <div>ステータス：<%=$status[@bookings.status]%></div>
+   <div>前提・実現したいこと</div>
+   <div class="form-control" type="text"><%=@bookings.achievement %></div>
+   <div>発生している問題</div>
+   <div class="form-control" type="text"><%=@bookings.problem %></div>
+   <div>行なった事</div>
+   <div class="form-control" type="text"><%=@bookings.tried_thing %></div>
+   <div>参考URL</div>
+   <div class="form-control" type="text"><%=@bookings.ref_url %></div>
+   <div>面談日：<%=@bookings.lesson_date.strftime('%Y/%m/%d')%> 講師：<%=User.find(@bookings.teacher_id).name if User.find(@bookings.teacher_id).present? %></div>
+   <%= link_to "Googleカレンダー連携", "#", class: "btn btn-primary" %><br>
+   <%= link_to "編集", "#", class: "btn btn-primary" %>
+   <%= link_to "予約", "#", class: "btn btn-primary" %>
+   <%= link_to "更新", "#", class: "btn btn-primary" %>
+   <div>質問の結果</div>
+   <div class="form-control" type="text"><%=@bookings.lesson_content %></div>
+   <div>備考</div>
+   <div class="form-control" type="text"><%=@bookings.remarks %></div>
+  </div>
+</div>

@@ -51,6 +51,14 @@ class UsersController < ApplicationController
     flash[:success] = "ユーザーを削除しました"
     redirect_to users_url
   end
+  
+  def past
+    @bookings = Booking.all
+  end
+  
+  def pastdetail
+    @bookings = Booking.find(params[:id])
+  end
 
   private
 
