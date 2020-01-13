@@ -78,6 +78,21 @@ p {
   }
 }
 
+#calendar{
+  margin-top: 30px;
+}
+
+#header-right {
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+  color: white;
+}
+
+ul.navbar {
+  text-align: right;
+}
+
 /* footer */
 
 footer {
@@ -103,9 +118,9 @@ footer {
     }
   }
 }
-  
+
   /* miscellaneous */
-  
+
   .debug_dump {
   clear: both;
   float: left;
@@ -187,6 +202,11 @@ input {
     margin-left: 20px;
     font-weight: normal;
   }
+}
+
+.bootstrap-date {
+  display: inline-block;
+  width: auto;
 }
 
 #session_remember_me {

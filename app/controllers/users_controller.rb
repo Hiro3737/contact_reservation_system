@@ -35,11 +35,16 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find_by(id: params[:id])
+    @age = %w(10 20 30 40 50 60 70 80 90)
   end
 
   def update
-    if @user.update_attributes(user_params)
-      flash[:success] = "プロフィールが更新されました"
+    # adminなら拡張して変更権限持たせる
+    update_data = current_user.admin? ? user_params_admin : user_params
+    
+
+    if @user.update_attributes(update_data)
+      flash[:success] = "ユーザー情報を更新しました"
       redirect_to @user
     else
       render "edit"
@@ -55,7 +60,33 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    # 相談時間変更のチェックがある場合は登録する
+    if params[:user][:time_range_flg].to_i == 1
+      params.require(:user).permit(
+        :name, :email, :skill, :line, :holiday_from, :time_range_from,
+        :time_range_to, :holiday_to, :password, :password_confirmation
+        )
+    else
+      params.require(:user).permit(
+        :name, :email, :skill, :line, :password, :password_confirmation
+        )
+    end
+  end
+
+  # adminユーザーからの送信のみ許可する場合
+  def user_params_admin
+    if params[:user][:time_range_flg].to_i == 1
+      params.require(:user).permit(
+        :name, :email, :skill, :line, :holiday_from, :time_range_from,
+        :time_range_to, :holiday_to, :password, :password_confirmation,
+        :job, :gender, :age, :enrollment, :user_type
+      )
+    else
+      params.require(:user).permit(
+        :name, :email, :skill, :line, :password, :password_confirmation,
+        :job, :gender, :age, :enrollment, :user_type
+      )
+    end
   end
 
   # beforeアクション
