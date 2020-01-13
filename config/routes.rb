@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "past" => "users#past"
 
   get "pastdetail/:id" => "users#pastdetail", as: :pastdetail
+  patch "pastdetail/:id" => 'users#pastdetail_update'
 
   resources :users do
   end

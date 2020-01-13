@@ -59,11 +59,22 @@ class UsersController < ApplicationController
   def pastdetail
     @bookings = Booking.find(params[:id])
   end
+  
+  def pastdetail_update
+    @booking = Booking.find(params[:id])
+    if @booking.update_attributes(bookings_params)
+      flash[:success] = "質問内容を更新しました。"
+      redirect_to pastdetail_url(@booking)
+    else
+     render "pastdetail"
+    end
+  end
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  def bookings_params
+    params.require(:booking).permit(:tag_id, :point_id, :achievement, :problem, :tried_thing, :ref_url, :lesson_date, :teacher_id, 
+                   :lesson_content, :remarks)
   end
 
   # beforeアクション

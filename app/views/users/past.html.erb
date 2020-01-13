@@ -14,7 +14,7 @@
      <tbody>
        <% @bookings.each do |f|%>
        <tr>
-      　<td><%=f.created_at.strftime('%Y/%m/%d')%></td>
+      　<td><%=f.lesson_date.strftime('%Y/%m/%d')%></td>
         <td><%= link_to f.title, pastdetail_path(f) %></td>
       　<td><%=$status[f.status]%></td> 
         <td><%=Tag.find(f.tag_id).tag_name%></td>
