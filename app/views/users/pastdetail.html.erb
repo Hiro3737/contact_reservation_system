@@ -1,0 +1,28 @@
+<% provide(:title) %>
+<h1>質問内容</h1>
+<%= form_with(model: @bookings,url: pastdetail_path(@bookings),local: true, method: :patch) do |f| %>
+  <div>
+    <div class="col-md-9 col-md-offset-1">
+      タグ：<%= f.collection_select :tag_id,Tag.all,:id,:tag_name,{},class: "select" %>
+      <p class="underline"><%=@bookings.title%></p>
+      項目:<%= f.collection_select :point_id,Point.all,:id,:item,{},class: "select" %>
+      ステータス：<%= f.select :point_id,[["新規",0],["面談前",1],["面談後",2],["完了",3]],{},class: "select" %>
+        <div>前提・実現したいこと</div>
+        <%= f.text_area :achievement, class: "form-control" %>
+        <div>発生している問題</div>
+        <%= f.text_area :problem, class: "form-control" %>
+        <div>行なった事</div>
+        <%= f.text_area :tried_thing, class: "form-control" %>
+        <div>参考URL</div>
+        <%= f.text_area :ref_url, class: "form-control" %>
+        <div>面談日：<%= f.date_field :lesson_date, class: "select"%> 
+             講師：<%= f.select :teacher_id, User.where(user_type: 2).where.not(name: current_user.name).pluck(:name) ,{},class: "select" %></div>
+        <div>質問の結果</div>
+        <%= f.text_area :lesson_content, class: "form-control" %>
+        <div>備考</div>
+        <%= f.text_area :remarks, class: "form-control" %>
+        <%= link_to "Googleカレンダー連携", "#", class: "btn btn-primary" %><br>
+        <%= f.submit "編集", class: "btn btn-primary btn-signup" %>
+    </div>
+  </div>
+<% end %>

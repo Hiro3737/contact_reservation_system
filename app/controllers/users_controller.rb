@@ -56,9 +56,32 @@ class UsersController < ApplicationController
     flash[:success] = "ユーザーを削除しました"
     redirect_to users_url
   end
+  
+  def past
+    @bookings = Booking.all
+  end
+  
+  def pastdetail
+    @bookings = Booking.find(params[:id])
+  end
+  
+  def pastdetail_update
+    @booking = Booking.find(params[:id])
+    if @booking.update_attributes(bookings_params)
+      flash[:success] = "質問内容を更新しました。"
+      redirect_to pastdetail_url(@booking)
+    else
+     render "pastdetail"
+    end
+  end
 
   private
 
+  def bookings_params
+    params.require(:booking).permit(:tag_id, :point_id, :achievement, :problem, :tried_thing, :ref_url, :lesson_date, :teacher_id, 
+                   :lesson_content, :remarks)
+  end
+  
   def user_params
     # 相談時間変更のチェックがある場合は登録する
     if params[:user][:time_range_flg].to_i == 1

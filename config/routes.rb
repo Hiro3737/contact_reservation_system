@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   post "login" => "sessions#create"
   get "show" => "users#show"
   delete "logout" => "sessions#destroy"
+  
+  get "past" => "users#past"
+
+  get "pastdetail/:id" => "users#pastdetail", as: :pastdetail
+  patch "pastdetail/:id" => 'users#pastdetail_update'
 
   resources :users do
   end
