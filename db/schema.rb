@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20191130063455) do
-=======
 ActiveRecord::Schema.define(version: 20191212155052) do
->>>>>>> develop
 
   create_table "bookings", force: :cascade do |t|
     t.string "title", null: false
@@ -60,13 +56,8 @@ ActiveRecord::Schema.define(version: 20191212155052) do
     t.integer "age"
     t.datetime "enrollment"
     t.string "skill"
-<<<<<<< HEAD
-    t.string "holiday"
-    t.string "time_range"
-=======
     t.time "holiday_from"
     t.time "time_range_from"
->>>>>>> develop
     t.integer "user_type", default: 3
     t.string "line"
     t.string "picture"
