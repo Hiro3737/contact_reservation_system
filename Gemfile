@@ -17,6 +17,7 @@ gem 'rails-i18n'
 gem 'font-awesome-rails'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem 'jquery-rails', '4.3.1'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

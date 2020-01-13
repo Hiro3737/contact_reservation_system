@@ -24,7 +24,4 @@
 
 # Ignore Spring files.
 /spring/*.pid
-Dockerfile
-docker-compose.yml
-db/schema.rb
 db/schema.rb

@@ -6,26 +6,65 @@
     <%= form_for(@user) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :名前 %>
-      <%= f.text_field :name, class: 'form-control' %>
-
-      <%= f.label :メールアドレス %>
+    <%= f.label :name, class: "col-sm-4" %>
+    <%= f.text_field :name, class: 'form-control' %>
+    <div>
+      <%= f.label :email, class: "col-sm-4" %>
       <%= f.email_field :email, class: 'form-control' %>
-      
-      <%= f.label :所属 %>
-      <%= f.text_field :shozoku, class: 'form-control' %>
-      
-      <%= f.label :パスワード %>
-      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+    <div>
+    <%= f.label "相談時間を変更する" %>
+    <%= f.check_box 'time_range_flg', {checked: 1}, class: 'form-control bootstrap-date' %>
+      <%= f.label :time_range_from %>
+      <%= f.time_select :time_range_from, {include_blank: ''}, class: 'form-control bootstrap-date input-sm' %>
+      〜
+      <%= f.time_select :time_range_to, {include_blank: ''}, class: 'form-control bootstrap-date input-sm' %>
+    </div>
+    <div>
+      <%= f.label :holiday_from %>
+      <%= f.time_select :holiday_from, {include_blank: ''}, class: 'form-control bootstrap-date input-sm' %>
+      〜
+      <%= f.time_select :holiday_to, {include_blank: ''}, class: 'form-control bootstrap-date input-sm' %>
+    </div>
 
-      <%= f.label :パスワード, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-      
-      <%= f.label :指定勤務時間 %>
-      <%= f.time_field :specified_work_time, class: 'form-control' %>
+    <%= f.label :line %>
+    <%= f.text_field :line, class: 'form-control' %>
 
-      <%= f.label :基本勤務時間 %>
-      <%= f.time_field :basic_work_time, class: 'form-control' %>
+    <%= f.label :skill %>
+    <%= f.text_field :skill, class: 'form-control' %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+    <% if current_user.admin? %>
+      <%= f.label :job %>
+      <%= f.text_field :job, class: 'form-control' %>
+
+      <%= f.label :gender %>
+      <div class="radio-inline">
+        <label><%= f.radio_button :gender, true %>男</label>
+      </div>
+      <div class="radio-inline">
+        <label><%= f.radio_button :gender, false %>女</label>
+      </div>
+      <div>
+        <%= f.label :age, class: "control-label" %>
+        <%= f.select :age, @age, {include_blank:'年代'}, class: 'form-control' %>
+      </div>
+
+      <div>
+        <%= f.label :enrollment, class: "control-label" %>
+        <%＃= f.text_field :enrollment, class: 'form-control' %>
+        <%= f.date_select :enrollment, {}, class: 'form-control bootstrap-date'%>
+      </div>
+
+      <%= f.label :user_type %>
+      <%= f.select :user_type, [["管理者",1], ["講師",2], ["一般",3]], {}, class: 'form-control' %>
+    <% end %>
+
 
       <%= f.submit "編集", class: "btn btn-primary" %>
     <% end %>
